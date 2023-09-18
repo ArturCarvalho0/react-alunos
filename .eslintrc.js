@@ -28,5 +28,6 @@ module.exports = {
     'react/prop-types': 0,
     'default-param-last': 0,
     'func-names': 0,
+    'require-yield': 0,
   },
 };
