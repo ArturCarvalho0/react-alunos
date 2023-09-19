@@ -14,18 +14,24 @@ function* loginRequest({ payload }) {
     axios.defaults.headers.Authorization = `Bearer ${response.data.token}`;
     history.push(payload.prevPath);
   } catch (error) {
-    toast.error('Usuario ou senha inválidos.');
+    toast.error('E-mail ou senha inválidos.');
     yield put(actions.loginFailure());
   }
 }
 
+function registerRequest({ payload }) {
+  const { id, nome, email, password } = payload;
+  console.log('continua')
+}
+
 function persistRehydrate({ payload }) {
   const token = get(payload, 'auth.token');
-  if(!token) return;
+  if (!token) return;
   axios.defaults.headers.Authorization = `Bearer ${token}`;
 }
 
 export default all([
   takeLatest(types.LOGIN_REQUEST, loginRequest),
+  takeLatest(types.REGISTER_REQUEST, registerRequest),
   takeLatest(types.PERSIST_REHYDRATE, persistRehydrate),
 ]);
