@@ -6,8 +6,8 @@ export default function Loading({ isLoading }) {
   if (!isLoading) return <></>;
   return (
     <Container>
-      <div/>
-        <span>Carregando...</span>
+      <div />
+      <span>Carregando...</span>
     </Container>
   );
 }

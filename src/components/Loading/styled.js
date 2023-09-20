@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   position: absolute;
@@ -18,11 +18,10 @@ export const Container = styled.div`
     width: 100%;
     height: 100%;
     z-index: 1;
-    background: rgba(0,0,0, 0.8);
+    background: rgba(0, 0, 0, 0.8);
   }
 
   span {
     z-index: 2;
   }
-
 `;
