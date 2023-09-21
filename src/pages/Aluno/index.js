@@ -4,8 +4,10 @@ import { isEmail, isInt, isFloat } from 'validator';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import { FaEdit, FaUserCircle } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { Container } from '../../styles/GlobalStyle';
-import { Form } from './styled';
+import { Form, ProfilePicture, Title } from './styled';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import history from '../../services/history';
@@ -20,6 +22,7 @@ export default function Aluno({ match }) {
   const [idade, setIdade] = useState('');
   const [peso, setPeso] = useState('');
   const [altura, setAltura] = useState('');
+  const [foto, setFoto] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -30,6 +33,7 @@ export default function Aluno({ match }) {
         setIsLoading(true);
         const { data } = await axios.get(`/alunos/${id}`);
         const Foto = get(data, 'Fotos[0].url', '');
+        setFoto(Foto);
         setNome(data.nome);
         setSobrenome(data.sobrenome);
         setEmail(data.email);
@@ -117,8 +121,16 @@ export default function Aluno({ match }) {
 
   return (
     <Container>
+      <Title>{id ? 'Editar aluno' : 'Novo Aluno'}</Title>
+      {id && (
+        <ProfilePicture>
+          {foto ? <img src={foto} alt={nome} /> : <FaUserCircle size={180} />}
+          <Link to={`/fotos/${id}`}>
+            <FaEdit size={24} />
+          </Link>
+        </ProfilePicture>
+      )}
       <Loading isLoading={isLoading} />
-      <h1>{id ? 'Editar aluno' : 'Novo Aluno'}</h1>
       <Form onSubmit={handleSubmit}>
         <input
           type="text"
